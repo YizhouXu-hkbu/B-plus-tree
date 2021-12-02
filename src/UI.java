@@ -93,6 +93,7 @@ public class UI {
     }
 
     public static void main(String[] args) {
+        System.out.println("This is used to test if the push is ok.");
         UI ui = new UI();
         ui.runOnce();
     }
