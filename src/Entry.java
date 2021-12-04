@@ -8,6 +8,11 @@ public class Entry {
         record=0;
     }
 
+    public Entry(int key){
+        this.key=key;
+        record=1;
+    }
+
     public int getEntryKey(){
         return this.key;
     }
