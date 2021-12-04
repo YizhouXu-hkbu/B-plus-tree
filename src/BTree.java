@@ -13,6 +13,9 @@ public class BTree {
             while((line = br.readLine()) != null) {
                 this.insert(Integer.parseInt(line));
             }
+
+            PrintTree();
+
             System.out.println("Building an initial B+-Tree... \nLaunching B+-Tree test program...\nWaiting for your commands: ");
         } catch (Exception e) {
             System.out.println("The error is \"" + e.getMessage() + "\"");
@@ -36,6 +39,7 @@ public class BTree {
             while(!n.isLeaf()){
                 n=n.findPosition(k);
             }
+
             if(n.isFull()){
                 insert(n,k);
             }
@@ -46,11 +50,39 @@ public class BTree {
 
     }
 
+    public void PrintTree(){
+        PrintTree(root);
+    }
+
+    private void PrintTree(Node n){
+        if(n.isLeaf()){
+            n.print();
+        }
+        for(int i=0;i<4;i++){
+            if(n.getChild(i)!=null){
+                n.getChild(i).print();
+            }
+        }
+    }
+
     private void insert(Node n, int k){
 
         if(n.isLeaf()){
+            //Situation A:bare root
            if(findParent(n)==null){
-               
+               Node left=new Node(n.getKey(0),n.getKey(1));
+               Node Middle=new Node(new Entry());
+               Node Right=new Node(n.getKey(2),n.getKey(3));
+
+               Middle.setChild(0,left);
+               Middle.setChild(1,Right);
+               Middle.setLeaf(false);
+               root=Middle;
+               insert(k);
+           }
+           //situation B:leaf
+           else{
+
 
            }
         }

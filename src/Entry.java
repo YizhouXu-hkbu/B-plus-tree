@@ -4,8 +4,8 @@ public class Entry {
 
 
     public Entry(){
-        key=0;
-        record=0;
+        this.key=0;
+        this.record=0;
     }
 
     public Entry(int key){

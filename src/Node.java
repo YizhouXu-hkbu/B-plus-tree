@@ -35,6 +35,25 @@ public class Node {
         key[0]=new Entry(k);
     }
 
+    public Node(Entry k) {
+        int T=2;
+        this.key = new Entry[2 * T];
+        this.child = new Node[2 * T + 1];
+        this.leaf = true;
+
+        key[0]=k;
+    }
+
+    public Node(int k,int m) {
+        int T=2;
+        this.key = new Entry[2 * T];
+        this.child = new Node[2 * T + 1];
+        this.leaf = true;
+
+        key[0]=new Entry(k);
+        key[1]=new Entry(m);
+    }
+
     public boolean isLeaf(){
         return leaf;
     }
@@ -43,12 +62,20 @@ public class Node {
         return root;
     }
 
-    public void SetLeaf(boolean leaf){
+    public void setLeaf(boolean leaf){
         this.leaf = leaf;
     }
 
     public void setKey(int position, int value) {
         this.key[position].setEntryKey(value);
+    }
+
+    public void setChild(int position, Node n) {
+        this.child[position]=n;
+    }
+
+    public Node getChild(int position) {
+        return this.child[position];
     }
 
     public int GetKeyNumber() {
@@ -96,31 +123,23 @@ public class Node {
 
     //insert a number via its value.
     public void insert(int k){
-        int location=0;
-        for(int i=0;i<this.GetKeyNumber();i++){
-            if(k<this.getKey(i)){
-                break;
+        int location=1;
+        while(true){
+            if(k>this.key[location-1].getEntryKey()){
+                if(this.key[location]==null || k<this.key[location].getEntryKey()){
+                    break;
+                }
             }
+            location++;
         }
-
 
         //move the back part one position back, and insert the number into the corresponding position
         //e.g. [2][5][8][] insert 1, [2][2][5][8] first, then [1][2][5][8]
-
         for(int i=this.GetKeyNumber();i>location;i--){
             this.key[i]=this.key[i-1];
         }
-        this.key[location].setEntryKey(k);
 
-      /*
-        Entry temp=key[this.GetKeyNumber()];
-        for(int i=this.GetKeyNumber();i>location;i--){
-            this.key[i]=this.key[i-1];
-        }
         this.key[location]=new Entry(k);
-        this.key[this.GetKeyNumber()-1]=temp;
-    */
-
     }
 
 
@@ -140,18 +159,22 @@ public class Node {
     public Node findPosition(int k){
         int location=0;
         for(int i=0;i<this.GetKeyNumber();i++){
-            if(k<this.getKey(i)){
-                break;
+            if(k>this.getKey(i)){
+                location++;
             }
         }
         return child[location];
     }
 
-    /*
-    public String toString(){
-        return "This node includes "+key[0].getEntryKey()+","+key[1].getEntryKey()+","+key[2].getEntryKey()+","+key[3].getEntryKey();
+
+    public void print(){
+        System.out.print("This leaf node includes the following numbers:");
+        for(int i=0;i<GetKeyNumber();i++){
+            System.out.print(" "+this.getKey(i));
+        }
+        System.out.println(".");
     }
-*/
+
 
 
 }
