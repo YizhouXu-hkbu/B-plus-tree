@@ -3,11 +3,9 @@ import java.io.File;
 import java.io.FileReader;
 
 public class BTree {
-    int T = 2;
-    Node root;
+    Node root=null;
 
     public BTree(String path) {
-        this.root = new Node(this.T);
         File db = new File(path);
         try {
             BufferedReader br = new BufferedReader(new FileReader(db));
@@ -27,15 +25,125 @@ public class BTree {
         System.out.println(num + " data entries with keys randomly chosen between [" + low + ", " + high + "] are inserted!");
     }
 
-    public void insert(int num) {
+    //common insert. After finding the location, insert it. If it is full, then entry the function of insert(node N, int k).
+    public void insert(int k){
+        if(root==null){
+            root=new Node(k);
+        }
+        else{
+            Node n=root;
+
+            while(!n.isLeaf()){
+                n=n.findPosition(k);
+            }
+            if(n.isFull()){
+                insert(n,k);
+            }
+            else{
+                n.insert(k);
+            }
+        }
+
+    }
+
+    private void insert(Node n, int k){
+
+        if(n.isLeaf()){
+           if(findParent(n)==null){
+               
+
+           }
+        }
 
 
-        if(!this.root.insert(num)){
-            if(this.root.isLeaf()){
+
+
+
+
+
+        /*
+            if(findParent(n) == null){
+                if(n.isLeaf()){
+
+                }
+
+                Node left=new Node();
+
+                System.out.println("We copy up here");
+
 
             }
-        };
+        System.out.println("we push up here");
+          */
+
+
+
+
+
+
+
+
+
+
     }
+
+
+    private Node findParent(Node n){
+        if(n==null || n.isRoot()){
+            return null;
+        }
+        Node parent=null;
+        Node m=root;
+        int p=n.getKey(0);
+
+        while(!m.equals(n)){
+            parent=m;
+            m=m.findPosition(p);
+        }
+        return parent;
+    }
+
+
+    //Find the entry we want via an integer, this returns the result of integer
+    public int find(int k){
+        Node n=root;
+
+        if(n==null){
+            System.out.println("This is an empty tree!");
+            return 0;
+        }
+        else{
+            while(!n.isLeaf()){
+                n=n.findPosition(k);
+            }
+            if(n.findKey(k)!=-1){
+                return k;
+            }
+            System.out.println("Key is not found!");
+            return -1;
+        }
+    }
+
+    //Find the entry we want via an integer, this returns the result of Entry
+    public Entry findEntry(int k){
+        Node n=root;
+
+        if(n==null){
+            System.out.println("This is an empty tree!");
+            return null;
+        }
+        else{
+            while(!n.isLeaf()){
+                n=n.findPosition(k);
+            }
+            if(n.findEntry(k)!=null){
+                return n.findEntry(k);
+            }
+            System.out.println("Entry is not found!");
+            return null;
+        }
+    }
+
 
     public void copyUp(){
 
