@@ -17,7 +17,7 @@ public class BTree {
             }
             System.out.println("Building an initial B+-Tree... \nLaunching B+-Tree test program...\nWaiting for your commands: ");
         } catch (Exception e) {
-            //System.out.println("The error is \"" + e.getMessage() + "\"");
+            System.out.println("The error is \"" + e.getMessage() + "\"");
             System.out.println("Cannot find the data file. Please check the name.");
             System.exit(1);  //terminate the progress with error
         }
