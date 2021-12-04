@@ -24,6 +24,4 @@ public class Entry {
     public int getRecord(){
         return this.record;
     }
-
-
 }
