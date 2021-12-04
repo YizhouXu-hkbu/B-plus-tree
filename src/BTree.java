@@ -1,36 +1,26 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
 public class BTree {
-    boolean isReady = false;
     int T = 2;
     Node root;
 
     public BTree(String path) {
         this.root = new Node(this.T);
         File db = new File(path);
-
         try {
             BufferedReader br = new BufferedReader(new FileReader(db));
-
             String line;
             while((line = br.readLine()) != null) {
                 this.insert(Integer.parseInt(line));
             }
-
             System.out.println("Building an initial B+-Tree... \nLaunching B+-Tree test program...\nWaiting for your commands: ");
-        } catch (Exception var5) {
-            System.out.println("The error is \"" + var5.getMessage() + "\"");
+        } catch (Exception e) {
+            //System.out.println("The error is \"" + e.getMessage() + "\"");
             System.out.println("Cannot find the data file. Please check the name.");
-            System.exit(1);
+            System.exit(1);  //terminate the progress with error
         }
-
     }
 
     public void insert(int low, int high, int num) {
