@@ -56,12 +56,10 @@ public class Node {
 
     public boolean insert(int value) {
         for(int i = 0; i < this.key.length; i++) {
-
-            System.out.println(this.key[i]);
-            System.out.println(this.key[i].getEntryKey());
-
-            if (this.key[i].getEntryKey() == 0) {
-                this.key[i].setEntryKey(value);
+            if (this.key[i] == null) {
+                Entry entry=new Entry();
+                entry.setEntryKey(value);
+                this.key[i]=entry;
                 return true;
             }
         }

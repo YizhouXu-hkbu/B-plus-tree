@@ -28,8 +28,21 @@ public class BTree {
     }
 
     public void insert(int num) {
-        System.out.println(this.root.insert(num));
+
+
+        if(!this.root.insert(num)){
+            if(this.root.isLeaf()){
+
+            }
+        };
     }
+
+    public void copyUp(){
+
+    }
+
+
+
 
     public void delete(int low, int high) {
         System.out.println("The data entries for values in [" + low + ", " + high + "] are deleted");
