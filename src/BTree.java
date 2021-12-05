@@ -11,11 +11,10 @@ public class BTree {
             BufferedReader br = new BufferedReader(new FileReader(db));
             String line;
             while((line = br.readLine()) != null) {
+                System.out.println(line);
                 this.insert(Integer.parseInt(line));
             }
-
             PrintTree();
-
             System.out.println("Building an initial B+-Tree... \nLaunching B+-Tree test program...\nWaiting for your commands: ");
         } catch (Exception e) {
             System.out.println("The error is \"" + e.getMessage() + "\"");
@@ -71,7 +70,7 @@ public class BTree {
             //Situation A:bare root
            if(findParent(n)==null){
                Node left=new Node(n.getKey(0),n.getKey(1));
-               Node Middle=new Node(new Entry());
+               Node Middle=new Node(new Entry(1));
                Node Right=new Node(n.getKey(2),n.getKey(3));
 
                Middle.setChild(0,left);
@@ -189,6 +188,7 @@ public class BTree {
     }
 
     public void print() {
+
     }
 
     public void printStats() {

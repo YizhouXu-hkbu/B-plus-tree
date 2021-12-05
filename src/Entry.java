@@ -1,16 +1,10 @@
 public class Entry {
     private int key;
-    private int record;
-
-
-    public Entry(){
-        this.key=0;
-        this.record=0;
-    }
+    private int value;
 
     public Entry(int key){
         this.key=key;
-        record=1;
+        this.value=0;
     }
 
     public int getEntryKey(){
@@ -22,6 +16,10 @@ public class Entry {
     }
 
     public int getRecord(){
-        return this.record;
+        return this.value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 }

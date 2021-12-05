@@ -3,7 +3,7 @@ public class UI {
     /**
      * btree is the b +tree to be built
      */
-    public BTree bTree = new BTree(System.getProperty("user.dir") + "\\db.db");
+    public BTree bTree = new BTree(System.getProperty("user.dir") + "\\data.txt");
     /**
      * isReady is used to figure out if the B+ Tree is built.
      */
