@@ -4,17 +4,20 @@ import java.io.FileReader;
 
 public class BTree {
     Node root=null;
+    private int T=2;
 
     public BTree(String path) {
         File db = new File(path);
         try {
+
             BufferedReader br = new BufferedReader(new FileReader(db));
             String line;
             while((line = br.readLine()) != null) {
-                System.out.println(line);
                 this.insert(Integer.parseInt(line));
             }
+
             PrintTree();
+
             System.out.println("Building an initial B+-Tree... \nLaunching B+-Tree test program...\nWaiting for your commands: ");
         } catch (Exception e) {
             System.out.println("The error is \"" + e.getMessage() + "\"");
@@ -23,9 +26,60 @@ public class BTree {
         }
     }
 
+
+    private void insert(int key){
+
+    }
+
+    public void PrintTree(){
+        PrintTree(root);
+    }
+
+
+
+    private void PrintTree(Node n){
+        if(n.isLeaf()){
+            n.print();
+        }
+
+        for(int i=0;i<n.childNumCount();i++){
+            if(n.getChild(i)!=null){
+                PrintTree(n.getChild(i));
+            }
+        }
+    }
+
+
+
+
+
+/*
+    private Node findParent(Node n){
+        if(n==null || n.isRoot()){
+            return null;
+        }
+        Node parent=null;
+        Node m=root;
+
+        int p=n.getEntry(0);
+
+        while(!m.equals(n)){
+            parent=m;
+            m=m.findPosition(p);
+        }
+        return parent;
+    }
+
+
+
+
+
     public void insert(int low, int high, int num) {
+
         System.out.println(num + " data entries with keys randomly chosen between [" + low + ", " + high + "] are inserted!");
     }
+
+
 
     //common insert. After finding the location, insert it. If it is full, then entry the function of insert(node N, int k).
     public void insert(int k){
@@ -49,28 +103,18 @@ public class BTree {
 
     }
 
-    public void PrintTree(){
-        PrintTree(root);
-    }
 
-    private void PrintTree(Node n){
-        if(n.isLeaf()){
-            n.print();
-        }
-        for(int i=0;i<4;i++){
-            if(n.getChild(i)!=null){
-                n.getChild(i).print();
-            }
-        }
-    }
+
+
 
     private void insert(Node n, int k){
 
         if(n.isLeaf()){
             //Situation A:bare root
            if(findParent(n)==null){
+
                Node left=new Node(n.getKey(0),n.getKey(1));
-               Node Middle=new Node(new Entry(1));
+               Node Middle=new Node(new Entry());
                Node Right=new Node(n.getKey(2),n.getKey(3));
 
                Middle.setChild(0,left);
@@ -78,6 +122,7 @@ public class BTree {
                Middle.setLeaf(false);
                root=Middle;
                insert(k);
+
            }
            //situation B:leaf
            else{
@@ -85,7 +130,7 @@ public class BTree {
 
            }
         }
-
+*/
 
 
 
@@ -116,25 +161,10 @@ public class BTree {
 
 
 
-    }
+   // }
 
 
-    private Node findParent(Node n){
-        if(n==null || n.isRoot()){
-            return null;
-        }
-        Node parent=null;
-        Node m=root;
-        int p=n.getKey(0);
-
-        while(!m.equals(n)){
-            parent=m;
-            m=m.findPosition(p);
-        }
-        return parent;
-    }
-
-
+/*
     //Find the entry we want via an integer, this returns the result of integer
     public int find(int k){
         Node n=root;
@@ -181,7 +211,7 @@ public class BTree {
     }
 
 
-
+*/
 
     public void delete(int low, int high) {
         System.out.println("The data entries for values in [" + low + ", " + high + "] are deleted");

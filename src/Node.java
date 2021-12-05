@@ -2,7 +2,7 @@ public class Node {
     /**
      * key is values stored in this B+ Tree
      */
-    private Entry[] key;
+    private Entry[] EntryList;
     /**
      * child is the child node in the leaf page
      */
@@ -15,19 +15,21 @@ public class Node {
      * sibling is the sibling node
      */
 
+    //This can be changed to another value if necessary
+    private int T=2;
     private boolean leaf;
     private boolean root;
 
+    //initialization part
     public Node() {
-        int T=2;
-        this.key = new Entry[2 * T];
+        this.EntryList = new Entry[2 * T];
         this.child = new Node[2 * T + 1];
         this.leaf=true;
         this.root=true;
     }
 
+    /*
     public Node(int k) {
-        int T=2;
         this.key = new Entry[2 * T];
         this.child = new Node[2 * T + 1];
         this.leaf = true;
@@ -36,7 +38,6 @@ public class Node {
     }
 
     public Node(Entry k) {
-        int T=2;
         this.key = new Entry[2 * T];
         this.child = new Node[2 * T + 1];
         this.leaf = true;
@@ -52,6 +53,35 @@ public class Node {
 
         key[0]=new Entry(k);
         key[1]=new Entry(m);
+    }*/
+
+
+
+
+    //get and set function part
+    public int childNumCount(){
+        return child.length;
+    }
+
+
+    public int childCount(){
+        if(child[0]==null){
+            return 0;
+        }
+        int count=0;
+        while(count<this.childNumCount()){
+            if(child[count]!=null){
+                count++;
+            }
+            else{
+            return count;
+            }
+        }
+        return this.childNumCount();
+    }
+
+    public int EntryNumCount(){
+        return EntryList.length;
     }
 
     public boolean isLeaf(){
@@ -66,8 +96,12 @@ public class Node {
         this.leaf = leaf;
     }
 
-    public void setKey(int position, int value) {
-        this.key[position].setEntryKey(value);
+    public void setRoot(boolean root){
+        this.root=root;
+    }
+
+    public void setEntry(int position, int value) {
+        this.EntryList[position].setEntryKey(value);
     }
 
     public void setChild(int position, Node n) {
@@ -78,6 +112,48 @@ public class Node {
         return this.child[position];
     }
 
+    public Entry getEntry(int position){
+        return this.EntryList[position];
+    }
+
+
+    //function part
+    public void print(){
+        System.out.print("This leaf node includes the following numbers:");
+        for(Entry i:EntryList){
+            System.out.print(" "+ i );
+        }
+        System.out.println(".");
+    }
+
+    public Node findChildWithNumber(int k){
+        if(child[0]==null){
+            System.out.println("This node has no child!");
+            return null;
+        }
+
+        if(k<this.getEntry(0).getEntryKey()){
+            return this.child[0];
+        }
+        else if(this.childCount()<2){
+            return this.child[1];
+        }
+
+        int i=0;
+        int j=1;
+        while(this.getEntry(j)!=null) {
+            if (k > this.getEntry(i).getEntryKey() && k < this.getEntry(j).getEntryKey()) {
+                return this.child[j];
+            }
+            i++;j++;
+        }
+
+        return this.child[EntryNumCount()];
+    }
+
+
+
+/*
     public int GetKeyNumber() {
         int count = 0;
         for (Entry k : key) {
@@ -121,6 +197,9 @@ public class Node {
         return this.GetKeyNumber()>=4;
     }
 
+
+
+
     //insert a number via its value.
     public void insert(int k){
         int location=1;
@@ -143,7 +222,7 @@ public class Node {
     }
 
 
-    /*
+
     public boolean insert(int value) {
         for(int i = 0; i < this.key.length; i++) {
             if (this.key[i] == null) {
@@ -154,7 +233,7 @@ public class Node {
             }
         }
         return false;
-    }*/
+    }
 
     public Node findPosition(int k){
         int location=0;
@@ -173,5 +252,7 @@ public class Node {
             System.out.print(" "+this.getKey(i));
         }
         System.out.println(".");
-    }
+    }*/
+
+
 }
